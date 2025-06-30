@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,27 +15,25 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build website with Parcel
-        run: npm run build
+      - name: Build with Parcel
+        run: npx parcel build src/*.html
 
-      - name: Upload build artifact
+      - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-
     permissions:
       pages: write
       id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
