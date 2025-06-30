@@ -1,0 +1,50 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  lint:
+    name: Run HTMLHint and Stylelint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install htmlhint stylelint
+
+      - name: Lint HTML files
+        run: npx htmlhint "src/**/*.html"
+
+      - name: Lint CSS files
+        run: npx stylelint "styles/**/*.css"
+
+  build:
+    name: Build Website with Parcel
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with Parcel
+        run: npx parcel build src/*.html
