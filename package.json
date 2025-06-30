@@ -1,9 +1,11 @@
 {
   "name": "blogging-website",
   "version": "1.0.0",
+  "description": "A blogging website with HTML/CSS linting and Parcel build",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/*.html"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,9 @@
     "url": "https://github.com/rukhma11/Blogging-Website/issues"
   },
   "homepage": "https://github.com/rukhma11/Blogging-Website#readme",
-  "description": ""
+  "devDependencies": {
+    "htmlhint": "^1.6.3",
+    "parcel": "^2.15.4",
+    "stylelint": "^15.11.0"
+  }
 }
